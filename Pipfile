@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "*"
+django-rest-framework = "*"
+python-decouple = "*"
+djangorestframework-jwt = "*"
+django-safedelete = "*"
+dj-database-url = "*"
+unipath = "*"
+
+[requires]
+python_version = "3.7"

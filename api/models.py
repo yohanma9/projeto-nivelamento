@@ -1,10 +1,16 @@
 from django.db import models
+
 from cpf_field.models import CPFField
 from phonenumber_field.modelfields import PhoneNumberField
 
+from safedelete.models import SafeDeleteModel
+from safedelete.models import SOFT_DELETE_CASCADE
+
 # Create your models here.
 
-class Cliente(models.Model):
+class Cliente(SafeDeleteModel):
+
+    _safedelete_policy = SOFT_DELETE_CASCADE
 
     nome = models.CharField('Nome', max_length=100)
     sobrenome = models.CharField('Sobrenome', max_length=100)
@@ -20,7 +26,9 @@ class Cliente(models.Model):
     def __str__(self):
         return f'{self.nome} - {self.email}'
 
-class Endereco(models.Model):
+class Endereco(SafeDeleteModel):
+
+    _safedelete_policy = SOFT_DELETE_CASCADE
 
     logradouro = models.CharField('Logradouro', max_length=100)
     numero = models.IntegerField('Número')

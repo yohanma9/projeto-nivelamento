@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from cpf_field.models import CPFField
 from phonenumber_field.modelfields import PhoneNumberField
@@ -7,24 +8,6 @@ from safedelete.models import SafeDeleteModel
 from safedelete.models import SOFT_DELETE_CASCADE
 
 # Create your models here.
-
-class Cliente(SafeDeleteModel):
-
-    _safedelete_policy = SOFT_DELETE_CASCADE
-
-    nome = models.CharField('Nome', max_length=100)
-    sobrenome = models.CharField('Sobrenome', max_length=100)
-    cpf = CPFField('CPF', unique=True)
-    rg = models.CharField('RG', max_length=100, unique=True)
-    telefone = PhoneNumberField('Telefone')
-    email = models.EmailField('Email', max_length=100, unique=True)
-
-    class Meta:
-        verbose_name = 'Cliente'
-        verbose_name_plural = 'Clientes'
-
-    def __str__(self):
-        return f'{self.nome} - {self.email}'
 
 class Endereco(SafeDeleteModel):
 
@@ -60,51 +43,95 @@ class Endereco(SafeDeleteModel):
         ('TO', 'Tocantins')
     ]
 
-    TIPOS = [
-        ('Principal', 'Principal'),
-        ('Secundário', 'Secundário'),
-    ]
-
-    logradouro = models.CharField('Logradouro', max_length=100)
-    numero = models.PositiveIntegerField('Número')
-    bairro = models.CharField('Bairro', max_length=100)
-    cidade = models.CharField('Cidade', max_length=100)
-    estado = models.CharField('Estado', max_length=100, choices=ESTADOS)
-    cliente = models.ForeignKey('Cliente', on_delete=models.CASCADE)
-    tipo = models.CharField('Tipo', max_length=100, choices=TIPOS)
+    logradouro = models.CharField(
+                        'Logradouro', max_length=100, null=False, blank=False)
+    numero = models.PositiveIntegerField('Número', null=False, blank=False)
+    complemento = models.CharField(
+                    'Complemento', max_length=100, null=False, blank=False)
+    bairro = models.CharField('Bairro', max_length=100, null=False, blank=False)
+    cidade = models.CharField('Cidade', max_length=100, null=False, blank=False)
+    estado = models.CharField(
+            'Estado', max_length=100, choices=ESTADOS, null=False, blank=False)
 
     class Meta:
         verbose_name = 'Endereço'
         verbose_name_plural = 'Endereços'
 
     def __str__(self):
-        return f'{self.logradouro} - {self.numero}'
+        return f'{self.logradouro} - {self.numero} - {self.complemento}'
+
+
+class Cliente(SafeDeleteModel):
+
+    _safedelete_policy = SOFT_DELETE_CASCADE
+
+    SEXO = (
+        ("F", "Feminino"),
+        ("M", "Masculino")
+    )
+
+    nome = models.CharField('Nome', max_length=100, null=False, blank=False)
+    sobrenome = models.CharField(
+                    'Sobrenome', max_length=100, null=False, blank=False)
+    aniversario = models.DateField('Aniversário', null=False, blank=False)
+    cpf = CPFField('CPF', unique=True, null=False, blank=False)
+    rg = models.CharField(
+                'RG', max_length=100, unique=True, null=False, blank=False)
+    telefone = PhoneNumberField('Telefone', null=False, blank=False)
+    email = models.EmailField(
+                'Email', max_length=100, unique=True, null=False, blank=False)
+    endereco = models.OneToOneField(
+                    Endereco, on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        verbose_name = 'Cliente'
+        verbose_name_plural = 'Clientes'
+
+    def __str__(self):
+        return f'{self.nome} - {self.email}'
 
 
 class Produto(SafeDeleteModel):
 
     _safedelete_policy = SOFT_DELETE_CASCADE
 
-    produto = models.CharField('Produto', max_length=100)
-    preco = models.DecimalField('Preço', max_digits=10, decimal_places=2)
-    estoque = models.PositiveIntegerField('Estoque')
+    produto = models.CharField(
+                    'Produto', max_length=100, null=False, blank=False)
+    descricao = models.CharField(
+                    'Descrição', max_length=200, null=False, blank=False)
+    preco = models.FloatField('Preço', null=False, blank=False)
 
     class Meta:
         verbose_name = 'Produto'
         verbose_name_plural = 'Produtos'
 
     def __str__(self):
-        return f'{self.produto} - {self.estoque}'
+        return f'{self.produto} - {self.preco}'
+
 
 class Pedido(SafeDeleteModel):
 
     _safedelete_policy = SOFT_DELETE_CASCADE
 
-    quantidade = models.PositiveIntegerField('Quantidade')
+    STATUS = (
+        ("P", "Pedido realizado"),
+        ("F", "Fazendo"),
+        ("E", "Saiu para entrega"),
+    )
+
+    cliente = models.ForeignKey(
+                "Cliente", on_delete=models.CASCADE, related_name='pedidos')
+    observacoes = models.CharField(
+                    'Observações', max_length=300, null=False, blank=False)
+    data = models.DateTimeField('Data', default=timezone.now)
+    valor = models.FloatField('Valor', blank=False, null=False)
+    status = models.CharField(
+        'Status', max_length=1, choices=STATUS, blank=False, null=False)
+    produtos = models.ManyToManyField(Produto)
 
     class Meta:
         verbose_name = 'Pedido'
         verbose_name_plural = 'Pedidos'
 
     def __str__(self):
-        return f'{self.quantidade}'
+        return f'{self.valor}'

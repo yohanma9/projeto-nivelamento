@@ -3,14 +3,14 @@ from django.urls import include
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 
-from .views import ClienteViewSet
 from .views import EnderecoViewSet
+from .views import ClienteViewSet
 from .views import ProdutoViewSet
 from .views import PedidoViewSet
 
 router = routers.DefaultRouter()
-router.register(r'cliente', ClienteViewSet)
 router.register(r'endereco', EnderecoViewSet)
+router.register(r'cliente', ClienteViewSet)
 router.register(r'produto', ProdutoViewSet)
 router.register(r'pedido', PedidoViewSet)
 

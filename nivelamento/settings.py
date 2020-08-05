@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'safedelete',
+    'rest_framework',
+    'cpf_field',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [

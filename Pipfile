@@ -13,6 +13,8 @@ djangorestframework-jwt = "*"
 django-safedelete = "*"
 dj-database-url = "*"
 unipath = "*"
+django-cpf = "*"
+django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
 
 [requires]
 python_version = "3.7"

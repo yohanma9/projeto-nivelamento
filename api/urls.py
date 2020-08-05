@@ -9,10 +9,10 @@ from .views import ProdutoViewSet
 from .views import PedidoViewSet
 
 router = routers.DefaultRouter()
-router.register(r'endereco', EnderecoViewSet)
-router.register(r'cliente', ClienteViewSet)
-router.register(r'produto', ProdutoViewSet)
-router.register(r'pedido', PedidoViewSet)
+router.register(r'enderecos', EnderecoViewSet)
+router.register(r'clientes', ClienteViewSet)
+router.register(r'produtos', ProdutoViewSet)
+router.register(r'pedidos', PedidoViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls), name='api'),

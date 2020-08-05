@@ -123,7 +123,7 @@ class Pedido(SafeDeleteModel):
                 "Cliente", on_delete=models.CASCADE, related_name='pedidos')
     observacoes = models.CharField(
                     'Observações', max_length=300, null=False, blank=False)
-    data = models.DateTimeField('Data', default=timezone.now)
+    data = models.DateField('Data', null=False, blank=False)
     valor = models.FloatField('Valor', blank=False, null=False)
     status = models.CharField(
         'Status', max_length=1, choices=STATUS, blank=False, null=False)

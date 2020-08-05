@@ -1,7 +1,7 @@
 from django.urls import path
 from django.urls import include
 from rest_framework import routers
-from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework_simplejwt import views as jwt_views
 
 from .views import EnderecoViewSet
 from .views import ClienteViewSet
@@ -16,5 +16,7 @@ router.register(r'pedido', PedidoViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls), name='api'),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth')
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token'),
+    path('api/token/refresh/',
+        jwt_views.TokenRefreshView.as_view(), name='refresh')
 ]

@@ -135,7 +135,7 @@ class Produto(SafeDeleteModel):
         verbose_name_plural = "Produtos"
 
     def __str__(self):
-        return f"{self.produto} - {self.preco}"
+        return f"{self.pk} - {self.produto} - {self.preco}"
 
 
 class Pedido(SafeDeleteModel):

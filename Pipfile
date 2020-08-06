@@ -10,8 +10,6 @@ django = "*"
 django-rest-framework = "*"
 python-decouple = "*"
 django-safedelete = "*"
-dj-database-url = "*"
-unipath = "*"
 django-cpf = "*"
 django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
 djangorestframework-simplejwt = "*"

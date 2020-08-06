@@ -15,6 +15,7 @@ unipath = "*"
 django-cpf = "*"
 django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
 djangorestframework-simplejwt = "*"
+drf-nested-routers = "*"
 
 [requires]
 python_version = "3.7"

@@ -1,0 +1,43 @@
+from django.test import TestCase
+from model_bakery import baker
+
+# Create your tests here.
+
+baker.generators.add("cpf_field.models.CPFField",
+                     "model_bakery.random_gen.gen_string")
+baker.generators.add(
+    "phonenumber_field.modelfields.PhoneNumberField",
+    "model_bakery.random_gen.gen_string",
+)
+
+
+class EnderecoTestCase(TestCase):
+    def setUp(self):
+        self.endereco = baker.make("Endereco")
+
+    def test_str(self):
+        self.assertEquals(str(self.endereco), self.endereco.logradouro)
+
+
+class ClienteTestCase(TestCase):
+    def setUp(self):
+        self.cliente = baker.make("Cliente")
+
+    def test_str(self):
+        self.assertEquals(str(self.cliente), self.cliente.nome)
+
+
+class ProdutoTestCase(TestCase):
+    def setUp(self):
+        self.produto = baker.make("Produto")
+
+    def test_str(self):
+        self.assertEquals(str(self.produto), self.produto.produto)
+
+
+class PedidoTestCase(TestCase):
+    def setUp(self):
+        self.pedido = baker.make("Pedido")
+
+    def test_str(self):
+        self.assertEquals(float(str(self.pedido)), self.pedido.valor)

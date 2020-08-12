@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 autopep8 = "*"
 pylint = "*"
+coverage = "*"
 
 [packages]
 django = "*"
@@ -16,6 +17,7 @@ django-cpf = "*"
 django-phonenumber-field = {extras = ["phonenumbers"], version = "*"}
 djangorestframework-simplejwt = "*"
 drf-nested-routers = "*"
+model-bakery = "*"
 
 [requires]
 python_version = "3.7"

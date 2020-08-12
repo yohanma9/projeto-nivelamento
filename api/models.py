@@ -72,7 +72,7 @@ class Endereco(SafeDeleteModel):
         verbose_name_plural = "Endereços"
 
     def __str__(self):
-        return f"{self.logradouro} - {self.numero} - {self.complemento}"
+        return f"{self.logradouro}"
 
 
 class Cliente(SafeDeleteModel, AbstractUser):
@@ -114,7 +114,7 @@ class Cliente(SafeDeleteModel, AbstractUser):
         verbose_name_plural = "Clientes"
 
     def __str__(self):
-        return f"{self.nome} - {self.email}"
+        return f"{self.nome}"
 
 
 class Produto(SafeDeleteModel):
@@ -137,7 +137,7 @@ class Produto(SafeDeleteModel):
         verbose_name_plural = "Produtos"
 
     def __str__(self):
-        return f"{self.pk} - {self.produto} - {self.preco}"
+        return f"{self.produto}"
 
 
 class Pedido(SafeDeleteModel):

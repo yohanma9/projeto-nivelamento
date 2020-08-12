@@ -2,7 +2,6 @@ from cpf_field.models import CPFField
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-
 from safedelete.models import SOFT_DELETE_CASCADE, SafeDeleteModel
 
 from .managers import ClienteManager
@@ -44,6 +43,7 @@ class Endereco(SafeDeleteModel):
         ("TO", "Tocantins"),
     ]
 
+    id = models.AutoField(primary_key=True)
     logradouro = models.CharField("Logradouro",
                                   max_length=100,
                                   null=False,
@@ -81,6 +81,7 @@ class Cliente(SafeDeleteModel, AbstractUser):
 
     SEXO = (("F", "Feminino"), ("M", "Masculino"))
 
+    id = models.AutoField(primary_key=True)
     nome = models.CharField("Nome", max_length=100, null=False, blank=False)
     sobrenome = models.CharField("Sobrenome",
                                  max_length=100,
@@ -120,6 +121,7 @@ class Produto(SafeDeleteModel):
 
     _safedelete_policy = SOFT_DELETE_CASCADE
 
+    id = models.AutoField(primary_key=True)
     produto = models.CharField("Produto",
                                max_length=100,
                                null=False,
@@ -148,6 +150,7 @@ class Pedido(SafeDeleteModel):
         ("E", "Saiu para entrega"),
     )
 
+    id = models.AutoField(primary_key=True)
     cliente = models.ForeignKey("Cliente",
                                 on_delete=models.CASCADE,
                                 related_name="pedidos")

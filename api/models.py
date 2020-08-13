@@ -102,9 +102,10 @@ class Cliente(SafeDeleteModel, AbstractUser):
                               unique=True,
                               null=False,
                               blank=False)
-    endereco = models.OneToOneField(Endereco,
-                                    on_delete=models.SET_NULL,
-                                    null=True)
+    endereco = models.CharField("Endereço",
+                                max_length=100,
+                                null=False,
+                                blank=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "aniversario"]

@@ -1,10 +1,11 @@
 from django.urls import include, path
-
 from rest_framework_nested import routers
 from rest_framework_simplejwt import views as jwt_views
 
 from .views import (ClienteViewSet, EnderecoViewSet, PedidoViewSet,
                     ProdutosViewSet, ProdutoViewSet)
+
+app_name = "api"
 
 router = routers.SimpleRouter()
 
@@ -23,11 +24,11 @@ clientes_router.register(r"enderecos", EnderecoViewSet)
 router.register(r"produtos", ProdutosViewSet)
 
 urlpatterns = [
-    path("api/", include(router.urls), name="api"),
-    path("api/", include(pedidos_router.urls), name="api"),
-    path("api/", include(clientes_router.urls), name="api"),
-    path("api/token/", jwt_views.TokenObtainPairView.as_view(), name="token"),
-    path("api/token/refresh/",
+    path("", include(router.urls), name="produtos"),
+    path("", include(pedidos_router.urls), name="pedidos"),
+    path("", include(clientes_router.urls), name="clientes"),
+    path("token/", jwt_views.TokenObtainPairView.as_view(), name="token"),
+    path("token/refresh/",
          jwt_views.TokenRefreshView.as_view(),
          name="refresh"),
 ]

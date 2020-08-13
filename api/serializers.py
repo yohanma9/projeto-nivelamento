@@ -11,9 +11,6 @@ class EnderecoSerializer(serializers.ModelSerializer):
 
 
 class ClienteSerializer(serializers.ModelSerializer):
-
-    endereco = EnderecoSerializer()
-
     class Meta:
 
         model = Cliente

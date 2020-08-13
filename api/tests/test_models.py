@@ -12,6 +12,8 @@ baker.generators.add(
 
 
 class EnderecoTestCase(TestCase):
+    """Testando o modelo endedereço..."""
+
     def setUp(self):
         self.endereco = baker.make("Endereco")
 
@@ -20,6 +22,8 @@ class EnderecoTestCase(TestCase):
 
 
 class ClienteTestCase(TestCase):
+    """Testando o modelo cliente..."""
+
     def setUp(self):
         self.cliente = baker.make("Cliente")
 
@@ -28,6 +32,8 @@ class ClienteTestCase(TestCase):
 
 
 class ProdutoTestCase(TestCase):
+    """Testando o modelo produto..."""
+
     def setUp(self):
         self.produto = baker.make("Produto")
 
@@ -36,6 +42,8 @@ class ProdutoTestCase(TestCase):
 
 
 class PedidoTestCase(TestCase):
+    """Testando o modelo pedido..."""
+
     def setUp(self):
         self.pedido = baker.make("Pedido")
 

@@ -1,3 +1,5 @@
+import uuid
+
 from cpf_field.models import CPFField
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -43,7 +45,7 @@ class Endereco(SafeDeleteModel):
         ("TO", "Tocantins"),
     ]
 
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     logradouro = models.CharField("Logradouro",
                                   max_length=100,
                                   null=False,
@@ -81,7 +83,7 @@ class Cliente(SafeDeleteModel, AbstractUser):
 
     SEXO = (("F", "Feminino"), ("M", "Masculino"))
 
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nome = models.CharField("Nome", max_length=100, null=False, blank=False)
     sobrenome = models.CharField("Sobrenome",
                                  max_length=100,
@@ -105,7 +107,7 @@ class Cliente(SafeDeleteModel, AbstractUser):
                                     null=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["username", "aniversario"]
 
     objects = ClienteManager()
 
@@ -121,7 +123,7 @@ class Produto(SafeDeleteModel):
 
     _safedelete_policy = SOFT_DELETE_CASCADE
 
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     produto = models.CharField("Produto",
                                max_length=100,
                                null=False,
@@ -150,7 +152,7 @@ class Pedido(SafeDeleteModel):
         ("E", "Saiu para entrega"),
     )
 
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     cliente = models.ForeignKey("Cliente",
                                 on_delete=models.CASCADE,
                                 related_name="pedidos")

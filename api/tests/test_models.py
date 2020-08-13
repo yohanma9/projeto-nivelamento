@@ -16,7 +16,7 @@ class EnderecoTestCase(TestCase):
         self.endereco = baker.make("Endereco")
 
     def test_str(self):
-        self.assertEquals(str(self.endereco), self.endereco.logradouro)
+        self.assertEqual(str(self.endereco), self.endereco.logradouro)
 
 
 class ClienteTestCase(TestCase):
@@ -24,7 +24,7 @@ class ClienteTestCase(TestCase):
         self.cliente = baker.make("Cliente")
 
     def test_str(self):
-        self.assertEquals(str(self.cliente), self.cliente.nome)
+        self.assertEqual(str(self.cliente), self.cliente.nome)
 
 
 class ProdutoTestCase(TestCase):
@@ -32,7 +32,7 @@ class ProdutoTestCase(TestCase):
         self.produto = baker.make("Produto")
 
     def test_str(self):
-        self.assertEquals(str(self.produto), self.produto.produto)
+        self.assertEqual(str(self.produto), self.produto.produto)
 
 
 class PedidoTestCase(TestCase):
@@ -40,4 +40,4 @@ class PedidoTestCase(TestCase):
         self.pedido = baker.make("Pedido")
 
     def test_str(self):
-        self.assertEquals(float(str(self.pedido)), self.pedido.valor)
+        self.assertEqual(float(str(self.pedido)), self.pedido.valor)
